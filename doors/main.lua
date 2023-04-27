@@ -1,4 +1,4 @@
-  local library = loadstring(game:HttpGet('https://pastebin.com/raw/vPWzQEC8'))()
+local library = loadstring(game:HttpGet('https://pastebin.com/raw/vPWzQEC8'))()
 
 local plr = game.Players.LocalPlayer
 
@@ -344,16 +344,6 @@ window_player.toggle("instant use",false,function(val)
     repeat task.wait() until not flags.instapp
 
     holdconnect:Disconnect()
-
-end)
-
-
-
-local walkspeedslider = window_player.slider("walkspeed",16,25,1,16,function(val)
-
-    hum.WalkSpeed = val
-
-    flags.speed = val
 
 end)
 
@@ -711,7 +701,7 @@ window_esp.toggle("book/breaker esp",false,function(val)
                         h.delete() 
 
                     end
-                
+                end)
             elseif v:IsA("Model") and (v.Name == "LiveBreakerPolePickup") then
 
                 task.wait(0.1)
