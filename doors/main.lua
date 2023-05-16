@@ -1,19 +1,9 @@
 local library = loadstring(game:HttpGet('https://pastebin.com/raw/vPWzQEC8'))()
-
 local plr = game.Players.LocalPlayer
-
 local char = plr.Character or plr.CharacterAdded:Wait()
-
 local hum = char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid")
-
-
-
 function esp(what,color,core,name)
-
     local parts
-
-    
-
     if typeof(what) == "Instance" then
 
         if what:IsA("Model") then
