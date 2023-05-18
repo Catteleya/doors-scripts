@@ -285,8 +285,18 @@ local window_misc = library.window("Misc")
 
 local window_esp = library.window("Esp")
 
+window_exit.button("Close Gui",function()
 
-window_credits.label("Credits: Catteleya#0093",32)
+    flags = DELFLAGS
+
+    task.wait()
+
+    library.delete()
+
+end)
+
+
+window_credits.label("Credits: Catteleya#0093",16)
 
 window_player.toggle("Client Glow",false,function(val)
 
@@ -313,7 +323,6 @@ window_player.toggle("Client Glow",false,function(val)
     end
 
 end)
-
 
 
 window_player.toggle("Instant Use",false,function(val)
@@ -1385,7 +1394,7 @@ window_misc.toggle("Notify Entities",false,function(val)
 
 end)
 
-window_misc.lable("Toggling this, will also send a message in the chat for others!",32)
+window_misc.lable("Toggling this, will also send a message in the chat for others!",16)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
@@ -1510,7 +1519,7 @@ window_misc.toggle("Auto Library Code",false,function(val)
 
 end)
 
-window_misc.label("You have to get the books first! (You can enable this before getting all books)",32)
+window_misc.label("You have to get the books first! (You can enable this before getting all books)",16)
 
 window_misc.toggle("A-000 Door No Locks",false,function(val)
 
@@ -1905,15 +1914,3 @@ if game.ReplicatedStorage:WaitForChild("GameData"):WaitForChild("Floor").Value =
     end)
 
 end
-
-
-
-window_exit.button("Close Gui",function()
-
-    flags = DELFLAGS
-
-    task.wait()
-
-    library.delete()
-
-end)
