@@ -275,14 +275,13 @@ local DELFLAGS = {table.unpack(flags)}
 local esptable = {doors={},keys={},items={},books={},entity={},chests={},lockers={},people={},gold={}}
 
 
+local window_credits = library.window("Credits")
 
 local window_player = library.window("Player")
 
-local window_esp = library.window("Esp")
-
 local window_misc = library.window("Misc")
 
-local window_credits = library.window("Credits")
+local window_esp = library.window("Esp")
 
 
 window_credits.label("credits: Catteleya#6900",20)
@@ -1366,6 +1365,10 @@ window_misc.toggle("notify entities",false,function(val)
                 if v:IsDescendantOf(workspace) then
 
                     message(v.Name:gsub("Moving",""):upper().." is coming go hide")
+		local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
+							
+		chatrem:FireServer(v.Name:gsub("Moving",""):upper().." is coming go hide")
+							
 
                 end
 
