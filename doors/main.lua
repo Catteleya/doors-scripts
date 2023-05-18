@@ -368,7 +368,8 @@ task.spawn(function()
 end)
 
 window_misc.toggle("Notify Entities",false,function(val)
-
+	
+	window_misc.label("Toggling this will also send a message in the chat!",16)
     flags.hintrush = val
 
     if val then
@@ -407,7 +408,6 @@ window_misc.toggle("Notify Entities",false,function(val)
 
 end)
 
-window_misc.label("Toggling this will also send a message in the chat!",16)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
