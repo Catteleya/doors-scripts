@@ -367,6 +367,420 @@ task.spawn(function()
 
 end)
 
+window_misc.toggle("Notify Entities",false,function(val)
+
+    flags.hintrush = val
+
+    if val then
+
+        local addconnect
+
+        addconnect = workspace.ChildAdded:Connect(function(v)
+
+            if table.find(entitynames,v.Name) then
+
+                repeat task.wait() until plr:DistanceFromCharacter(v:GetPivot().Position) < 1000 or not v:IsDescendantOf(workspace)
+
+                
+
+                if v:IsDescendantOf(workspace) then
+
+                    message(v.Name:gsub("Moving",""):upper().." is coming go hide")
+		local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
+							
+		chatrem:FireServer(v.Name:gsub("Moving",""):upper().." is coming go hide")
+							
+
+                end
+
+            end
+
+        end) 
+
+        
+
+        repeat task.wait() until not flags.hintrush
+
+        addconnect:Disconnect()
+
+    end
+
+end)
+
+window_misc.lable("Toggling this, will also send a message in the chat for others!",16)
+
+local screechremote = entityinfo:FindFirstChild("Screech")
+
+
+
+if screechremote then
+
+    window_misc.toggle("Harmless Screech",false,function(val)
+
+        flags.noscreech = val
+
+        
+
+        if val then
+
+            screechremote.Parent = nil
+
+            repeat task.wait() until not flags.noscreech
+
+            screechremote.Parent = entityinfo
+
+        end
+
+    end)
+
+end
+
+
+
+
+
+
+window_misc.toggle("Auto Library Code",false,function(val)
+
+    flags.getcode = val
+
+    
+
+    if val then
+
+        local function deciphercode()
+
+        local paper = char:FindFirstChild("LibraryHintPaper")
+
+        local hints = plr.PlayerGui:WaitForChild("PermUI"):WaitForChild("Hints")
+
+        
+
+        local code = {[1]="_",[2]="_",[3]="_",[4]="_",[5]="_"}
+
+            
+
+            if paper then
+
+                for i,v in pairs(paper:WaitForChild("UI"):GetChildren()) do
+
+                    if v:IsA("ImageLabel") and v.Name ~= "Image" then
+
+                        for i,img in pairs(hints:GetChildren()) do
+
+                            if img:IsA("ImageLabel") and img.Visible and v.ImageRectOffset == img.ImageRectOffset then
+
+                                local num = img:FindFirstChild("TextLabel").Text
+
+                                
+
+                                code[tonumber(v.Name)] = num 
+
+                            end
+
+                        end
+
+                    end
+
+                end 
+
+            end
+
+            
+
+            return code
+
+        end
+
+        
+
+        local addconnect
+
+        addconnect = char.ChildAdded:Connect(function(v)
+
+            if v:IsA("Tool") and v.Name == "LibraryHintPaper" then
+
+                task.wait()
+
+                
+
+                local code = table.concat(deciphercode())
+
+                
+
+                if code:find("_") then
+
+                    message("get all hints first")
+
+                else
+
+                    message("the code is ".. code)
+
+                end
+
+            end
+
+        end)
+
+        
+
+        repeat task.wait() until not flags.getcode
+
+        addconnect:Disconnect()
+
+    end
+
+end)
+
+window_misc.label("You have to get the books first! (You can enable this before getting all books)",16)
+
+window_misc.toggle("A-000 Door No Locks",false,function(val)
+
+    flags.roomsnolock = val
+
+    
+
+    if val then
+
+        local function check(room)
+
+            local door = room:WaitForChild("RoomsDoor_Entrance",2)
+
+            
+
+            if door then
+
+                local prompt = door:WaitForChild("Door"):WaitForChild("EnterPrompt")
+
+                prompt.Enabled = true
+
+            end 
+
+        end
+
+        
+
+        local addconnect
+
+        addconnect = workspace.CurrentRooms.ChildAdded:Connect(function(room)
+
+            check(room)
+
+        end)
+
+        
+
+        for i,v in pairs(workspace.CurrentRooms:GetChildren()) do
+
+            check(room)
+
+        end
+
+        
+
+        repeat task.wait() until not flags.roomsnolock
+
+        addconnect:Disconnect()
+
+    end
+
+end)
+
+
+
+window_misc.toggle("Loot Aura",false,function(val)
+
+    flags.draweraura = val
+
+    
+
+    if val then
+
+        local function setup(room)
+
+            local function check(v)
+
+                if v:IsA("Model") then
+
+                    if v.Name == "DrawerContainer" then
+
+                        local knob = v:WaitForChild("Knobs")
+
+                        
+
+                        if knob then
+
+                            local prompt = knob:WaitForChild("ActivateEventPrompt")
+
+                            local interactions = prompt:GetAttribute("Interactions")
+
+                            
+
+                            if not interactions then
+
+                                task.spawn(function()
+
+                                    repeat task.wait(0.1)
+
+                                        if plr:DistanceFromCharacter(knob.Position) <= 12 then
+
+                                            fireproximityprompt(prompt)
+
+                                        end
+
+                                    until prompt:GetAttribute("Interactions") or not flags.draweraura
+
+                                end)
+
+                            end
+
+                        end
+
+                    elseif v.Name == "GoldPile" then
+
+                        local prompt = v:WaitForChild("LootPrompt")
+
+                        local interactions = prompt:GetAttribute("Interactions")
+
+                            
+
+                        if not interactions then
+
+                            task.spawn(function()
+
+                                repeat task.wait(0.1)
+
+                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+
+                                        fireproximityprompt(prompt) 
+
+                                    end
+
+                                until prompt:GetAttribute("Interactions") or not flags.draweraura
+
+                            end)
+
+                        end
+
+                    elseif v.Name:sub(1,8) == "ChestBox" then
+
+                        local prompt = v:WaitForChild("ActivateEventPrompt")
+
+                        local interactions = prompt:GetAttribute("Interactions")
+
+                        
+
+                        if not interactions then
+
+                            task.spawn(function()
+
+                                repeat task.wait(0.1)
+
+                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+
+                                        fireproximityprompt(prompt)
+
+                                    end
+
+                                until prompt:GetAttribute("Interactions") or not flags.draweraura
+
+                            end)
+
+                        end
+
+                    elseif v.Name == "RolltopContainer" then
+
+                        local prompt = v:WaitForChild("ActivateEventPrompt")
+
+                        local interactions = prompt:GetAttribute("Interactions")
+
+                        
+
+                        if not interactions then
+
+                            task.spawn(function()
+
+                                repeat task.wait(0.1)
+
+                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+
+                                        fireproximityprompt(prompt)
+
+                                    end
+
+                                until prompt:GetAttribute("Interactions") or not flags.draweraura
+
+                            end)
+
+                        end
+
+                    end 
+
+                end
+
+            end
+
+    
+
+            local subaddcon
+
+            subaddcon = room.DescendantAdded:Connect(function(v)
+
+                check(v) 
+
+            end)
+
+            
+
+            for i,v in pairs(room:GetDescendants()) do
+
+                check(v)
+
+            end
+
+            
+
+            task.spawn(function()
+
+                repeat task.wait() until not flags.draweraura
+
+                subaddcon:Disconnect() 
+
+            end)
+
+        end
+
+        
+
+        local addconnect
+
+        addconnect = workspace.CurrentRooms.ChildAdded:Connect(function(room)
+
+            setup(room)
+
+        end)
+
+        
+
+        for i,room in pairs(workspace.CurrentRooms:GetChildren()) do
+
+            if room:FindFirstChild("Assets") then
+
+                setup(room) 
+
+            end
+
+        end
+
+        
+
+        repeat task.wait() until not flags.draweraura
+
+        addconnect:Disconnect()
+
+    end
+
+end)
 
 
 window_esp.toggle("Door Esp",false,function(val)
@@ -1354,420 +1768,6 @@ window_esp.slider("Minimum Gold Value",5,150,5,25,function(val)
 end)
 
 
-window_misc.toggle("Notify Entities",false,function(val)
-
-    flags.hintrush = val
-
-    if val then
-
-        local addconnect
-
-        addconnect = workspace.ChildAdded:Connect(function(v)
-
-            if table.find(entitynames,v.Name) then
-
-                repeat task.wait() until plr:DistanceFromCharacter(v:GetPivot().Position) < 1000 or not v:IsDescendantOf(workspace)
-
-                
-
-                if v:IsDescendantOf(workspace) then
-
-                    message(v.Name:gsub("Moving",""):upper().." is coming go hide")
-		local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
-							
-		chatrem:FireServer(v.Name:gsub("Moving",""):upper().." is coming go hide")
-							
-
-                end
-
-            end
-
-        end) 
-
-        
-
-        repeat task.wait() until not flags.hintrush
-
-        addconnect:Disconnect()
-
-    end
-
-end)
-
-window_misc.lable("Toggling this, will also send a message in the chat for others!",16)
-
-local screechremote = entityinfo:FindFirstChild("Screech")
-
-
-
-if screechremote then
-
-    window_misc.toggle("Harmless Screech",false,function(val)
-
-        flags.noscreech = val
-
-        
-
-        if val then
-
-            screechremote.Parent = nil
-
-            repeat task.wait() until not flags.noscreech
-
-            screechremote.Parent = entityinfo
-
-        end
-
-    end)
-
-end
-
-
-
-
-
-
-window_misc.toggle("Auto Library Code",false,function(val)
-
-    flags.getcode = val
-
-    
-
-    if val then
-
-        local function deciphercode()
-
-        local paper = char:FindFirstChild("LibraryHintPaper")
-
-        local hints = plr.PlayerGui:WaitForChild("PermUI"):WaitForChild("Hints")
-
-        
-
-        local code = {[1]="_",[2]="_",[3]="_",[4]="_",[5]="_"}
-
-            
-
-            if paper then
-
-                for i,v in pairs(paper:WaitForChild("UI"):GetChildren()) do
-
-                    if v:IsA("ImageLabel") and v.Name ~= "Image" then
-
-                        for i,img in pairs(hints:GetChildren()) do
-
-                            if img:IsA("ImageLabel") and img.Visible and v.ImageRectOffset == img.ImageRectOffset then
-
-                                local num = img:FindFirstChild("TextLabel").Text
-
-                                
-
-                                code[tonumber(v.Name)] = num 
-
-                            end
-
-                        end
-
-                    end
-
-                end 
-
-            end
-
-            
-
-            return code
-
-        end
-
-        
-
-        local addconnect
-
-        addconnect = char.ChildAdded:Connect(function(v)
-
-            if v:IsA("Tool") and v.Name == "LibraryHintPaper" then
-
-                task.wait()
-
-                
-
-                local code = table.concat(deciphercode())
-
-                
-
-                if code:find("_") then
-
-                    message("get all hints first")
-
-                else
-
-                    message("the code is ".. code)
-
-                end
-
-            end
-
-        end)
-
-        
-
-        repeat task.wait() until not flags.getcode
-
-        addconnect:Disconnect()
-
-    end
-
-end)
-
-window_misc.label("You have to get the books first! (You can enable this before getting all books)",16)
-
-window_misc.toggle("A-000 Door No Locks",false,function(val)
-
-    flags.roomsnolock = val
-
-    
-
-    if val then
-
-        local function check(room)
-
-            local door = room:WaitForChild("RoomsDoor_Entrance",2)
-
-            
-
-            if door then
-
-                local prompt = door:WaitForChild("Door"):WaitForChild("EnterPrompt")
-
-                prompt.Enabled = true
-
-            end 
-
-        end
-
-        
-
-        local addconnect
-
-        addconnect = workspace.CurrentRooms.ChildAdded:Connect(function(room)
-
-            check(room)
-
-        end)
-
-        
-
-        for i,v in pairs(workspace.CurrentRooms:GetChildren()) do
-
-            check(room)
-
-        end
-
-        
-
-        repeat task.wait() until not flags.roomsnolock
-
-        addconnect:Disconnect()
-
-    end
-
-end)
-
-
-
-window_misc.toggle("Loot Aura",false,function(val)
-
-    flags.draweraura = val
-
-    
-
-    if val then
-
-        local function setup(room)
-
-            local function check(v)
-
-                if v:IsA("Model") then
-
-                    if v.Name == "DrawerContainer" then
-
-                        local knob = v:WaitForChild("Knobs")
-
-                        
-
-                        if knob then
-
-                            local prompt = knob:WaitForChild("ActivateEventPrompt")
-
-                            local interactions = prompt:GetAttribute("Interactions")
-
-                            
-
-                            if not interactions then
-
-                                task.spawn(function()
-
-                                    repeat task.wait(0.1)
-
-                                        if plr:DistanceFromCharacter(knob.Position) <= 12 then
-
-                                            fireproximityprompt(prompt)
-
-                                        end
-
-                                    until prompt:GetAttribute("Interactions") or not flags.draweraura
-
-                                end)
-
-                            end
-
-                        end
-
-                    elseif v.Name == "GoldPile" then
-
-                        local prompt = v:WaitForChild("LootPrompt")
-
-                        local interactions = prompt:GetAttribute("Interactions")
-
-                            
-
-                        if not interactions then
-
-                            task.spawn(function()
-
-                                repeat task.wait(0.1)
-
-                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
-
-                                        fireproximityprompt(prompt) 
-
-                                    end
-
-                                until prompt:GetAttribute("Interactions") or not flags.draweraura
-
-                            end)
-
-                        end
-
-                    elseif v.Name:sub(1,8) == "ChestBox" then
-
-                        local prompt = v:WaitForChild("ActivateEventPrompt")
-
-                        local interactions = prompt:GetAttribute("Interactions")
-
-                        
-
-                        if not interactions then
-
-                            task.spawn(function()
-
-                                repeat task.wait(0.1)
-
-                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
-
-                                        fireproximityprompt(prompt)
-
-                                    end
-
-                                until prompt:GetAttribute("Interactions") or not flags.draweraura
-
-                            end)
-
-                        end
-
-                    elseif v.Name == "RolltopContainer" then
-
-                        local prompt = v:WaitForChild("ActivateEventPrompt")
-
-                        local interactions = prompt:GetAttribute("Interactions")
-
-                        
-
-                        if not interactions then
-
-                            task.spawn(function()
-
-                                repeat task.wait(0.1)
-
-                                    if plr:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
-
-                                        fireproximityprompt(prompt)
-
-                                    end
-
-                                until prompt:GetAttribute("Interactions") or not flags.draweraura
-
-                            end)
-
-                        end
-
-                    end 
-
-                end
-
-            end
-
-    
-
-            local subaddcon
-
-            subaddcon = room.DescendantAdded:Connect(function(v)
-
-                check(v) 
-
-            end)
-
-            
-
-            for i,v in pairs(room:GetDescendants()) do
-
-                check(v)
-
-            end
-
-            
-
-            task.spawn(function()
-
-                repeat task.wait() until not flags.draweraura
-
-                subaddcon:Disconnect() 
-
-            end)
-
-        end
-
-        
-
-        local addconnect
-
-        addconnect = workspace.CurrentRooms.ChildAdded:Connect(function(room)
-
-            setup(room)
-
-        end)
-
-        
-
-        for i,room in pairs(workspace.CurrentRooms:GetChildren()) do
-
-            if room:FindFirstChild("Assets") then
-
-                setup(room) 
-
-            end
-
-        end
-
-        
-
-        repeat task.wait() until not flags.draweraura
-
-        addconnect:Disconnect()
-
-    end
-
-end)
 
 
 
