@@ -407,7 +407,7 @@ window_misc.toggle("Notify Entities",false,function(val)
 
 end)
 
-window_misc.lable("Toggling this, will also send a message in the chat for others!",16)
+window_misc.label("Toggling this will also send a message in the chat!",16)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
