@@ -1383,7 +1383,6 @@ window_misc.toggle("Notify Entities",false,function(val)
 
 end)
 
-window_misc.lable("Notify Entities will also send a message in the chat, for the other players!", 32)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
