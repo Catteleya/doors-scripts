@@ -275,6 +275,8 @@ local DELFLAGS = {table.unpack(flags)}
 local esptable = {doors={},keys={},items={},books={},entity={},chests={},lockers={},people={},gold={}}
 
 
+local window_exit = library.window("Exit")
+
 local window_credits = library.window("Credits")
 
 local window_player = library.window("Player")
@@ -1906,11 +1908,9 @@ end
 
 
 
-window_misc.button("Close Gui",function()
+window_exit.button("Close Gui",function()
 
     flags = DELFLAGS
-
-    
 
     task.wait()
 
