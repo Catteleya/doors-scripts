@@ -1343,6 +1343,7 @@ window_esp.slider("minimum gold value",5,150,5,25,function(val)
 end)
 
 
+window_misc.lable("'Notify Entities' will also send a message in the chat, for the other players!")
 
 window_misc.toggle("notify entities",false,function(val)
 
