@@ -367,8 +367,6 @@ task.spawn(function()
 
 end)
 
-window_misc.lable("Toggling this will also send a message in chat for people to see!",16)
-
 window_misc.toggle("Notify Entities",false,function(val)
 	
 	
