@@ -284,9 +284,9 @@ local window_misc = library.window("Misc")
 local window_esp = library.window("Esp")
 
 
-window_credits.label("credits: Catteleya#6900",20)
+window_credits.label("Credits: Catteleya#0093",32)
 
-window_player.toggle("client glow",false,function(val)
+window_player.toggle("Client Glow",false,function(val)
 
     flags.light = val
 
@@ -314,7 +314,7 @@ end)
 
 
 
-window_player.toggle("instant use",false,function(val)
+window_player.toggle("Instant Use",false,function(val)
 
     flags.instapp = val
 
@@ -358,7 +358,7 @@ end)
 
 
 
-window_esp.toggle("door esp",false,function(val)
+window_esp.toggle("Door Esp",false,function(val)
 
     flags.espdoors = val
 
@@ -438,7 +438,7 @@ end)
 
 
 
-window_esp.toggle("key/lever esp",false,function(val)
+window_esp.toggle("Key/Lever Esp",false,function(val)
 
     flags.espkeys = val
 
@@ -554,7 +554,7 @@ end)
 
 
 
-window_esp.toggle("item esp",false,function(val)
+window_esp.toggle("Item Esp",false,function(val)
 
     flags.espitems = val
 
@@ -661,7 +661,7 @@ window_esp.toggle("item esp",false,function(val)
 end)
 
 
-window_esp.toggle("book/breaker esp",false,function(val)
+window_esp.toggle("Book/Breaker Esp",false,function(val)
 
     flags.espbooks = val
 
@@ -782,7 +782,7 @@ end)
 local entitynames = {"RushMoving","AmbushMoving","Snare","A60","A120"}
 
 
-window_esp.toggle("entity esp",false,function(val)
+window_esp.toggle("Entity Esp",false,function(val)
 
     flags.esprush = val
 
@@ -914,7 +914,7 @@ end)
 
 
 
-window_esp.toggle("locker esp",false,function(val)
+window_esp.toggle("Locker Esp",false,function(val)
 
     flags.esplocker = val
 
@@ -1024,7 +1024,7 @@ end)
 
 
 
-window_esp.toggle("chest esp",false,function(val)
+window_esp.toggle("Chest Esp",false,function(val)
 
     flags.espchest = val
 
@@ -1132,7 +1132,7 @@ end)
 
 
 
-window_esp.toggle("player esp",false,function(val)
+window_esp.toggle("Player Esp",false,function(val)
 
     flags.esphumans = val
 
@@ -1226,7 +1226,7 @@ end)
 
 
 
-window_esp.toggle("goldpile esp",false,function(val)
+window_esp.toggle("Goldpile Esp",false,function(val)
 
     flags.espgold = val
 
@@ -1336,20 +1336,16 @@ end)
 
 
 
-window_esp.slider("minimum gold value",5,150,5,25,function(val)
+window_esp.slider("Minimum Gold Value",5,150,5,25,function(val)
 
     flags.goldespvalue = val
 
 end)
 
 
-window_misc.lable("'Notify Entities' will also send a message in the chat, for the other players!")
-
-window_misc.toggle("notify entities",false,function(val)
+window_misc.toggle("Notify Entities",false,function(val)
 
     flags.hintrush = val
-
-    
 
     if val then
 
@@ -1387,7 +1383,7 @@ window_misc.toggle("notify entities",false,function(val)
 
 end)
 
-
+window_misc.lable("Notify Entities will also send a message in the chat, for the other players!", 32)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
@@ -1418,9 +1414,9 @@ end
 
 
 
-window_misc.label("You have to get the books first! (You can enable this before getting all books)",32)
 
-window_misc.toggle("auto library code",false,function(val)
+
+window_misc.toggle("Auto Library Code",false,function(val)
 
     flags.getcode = val
 
@@ -1512,9 +1508,9 @@ window_misc.toggle("auto library code",false,function(val)
 
 end)
 
+window_misc.label("You have to get the books first! (You can enable this before getting all books)",32)
 
-
-window_misc.toggle("A-000 door no locks",false,function(val)
+window_misc.toggle("A-000 Door No Locks",false,function(val)
 
     flags.roomsnolock = val
 
@@ -1568,7 +1564,7 @@ end)
 
 
 
-window_misc.toggle("loot aura",false,function(val)
+window_misc.toggle("Loot Aura",false,function(val)
 
     flags.draweraura = val
 
@@ -1812,7 +1808,7 @@ if game.ReplicatedStorage:WaitForChild("GameData"):WaitForChild("Floor").Value =
 
     
 
-    window_rooms.toggle("auto a-1000",false,function(val)
+    window_rooms.toggle("Auto A-1000",false,function(val)
 
         flags.autorooms = val
 
@@ -1910,7 +1906,7 @@ end
 
 
 
-window_misc.button("close gui",function()
+window_misc.button("Close Gui",function()
 
     flags = DELFLAGS
 
