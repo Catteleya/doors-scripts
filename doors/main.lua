@@ -1383,6 +1383,7 @@ window_misc.toggle("Notify Entities",false,function(val)
 
 end)
 
+window_misc.lable("Toggling this, will also send a message in the chat for others!",32)
 
 local screechremote = entityinfo:FindFirstChild("Screech")
 
@@ -1390,7 +1391,7 @@ local screechremote = entityinfo:FindFirstChild("Screech")
 
 if screechremote then
 
-    window_misc.toggle("harmless screech",false,function(val)
+    window_misc.toggle("Harmless Screech",false,function(val)
 
         flags.noscreech = val
 
