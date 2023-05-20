@@ -389,7 +389,7 @@ window_misc.toggle("Notify Entities",false,function(val)
                     message(v.Name:gsub("Moving",""):upper().." is coming go hide")
 		local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
 							
-		chatrem:FireServer(v.Name:gsub("Moving",""):upper().." is coming go hide")
+		chatrem:FireServer(upper().." is coming go hide")
 							
 
                 end
