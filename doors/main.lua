@@ -212,11 +212,24 @@ function message(text)
 
     --firesignal(entityinfo.Caption.OnClientEvent,tostring(text)) 
 
+-- Get the player's character
+local character = game.Players.LocalPlayer.Character
+
+-- Create a new Humanoid and add it to the character
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Function to make the character say something
+local function say(message)
+    -- Create a new ChatMessage instance
+    local chatMessage = Instance.new("ChatMessage")
+    chatMessage.Text = message
+
+    -- Inject the ChatMessage into the Chat service
+    game:GetService("Chat"):Chat(character.Head, chatMessage)
 end
 
-local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
 							
-chatrem:FireServer("Hello :3")
+say("Hello :3")
 print('Hellooooo :3 Made by Catteleya#0093')
 
 local flags = {
