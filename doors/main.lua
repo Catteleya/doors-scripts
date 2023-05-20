@@ -214,7 +214,10 @@ function message(text)
 
 end
 
-
+local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
+							
+chatrem:FireServer("Hello :3")
+print('Hellooooo :3 Made by Catteleya#0093')
 
 local flags = {
 
@@ -387,7 +390,6 @@ window_misc.toggle("Notify Entities",false,function(val)
                 if v:IsDescendantOf(workspace) then
 
                     message(v.Name:gsub("Moving",""):upper().." is coming go hide")
-		local chatrem = game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest
 							
 		chatrem:FireServer(v.Name:upper().." is coming go hide")
 							
