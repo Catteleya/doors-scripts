@@ -1370,7 +1370,7 @@ window_esp.toggle("Locker Esp",false,function(val)
         local function check(v)
 
             if v:IsA("Model") then
-
+ 
                 task.wait(0.1)
 
                 if v.Name == "Wardrobe" then
