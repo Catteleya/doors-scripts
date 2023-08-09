@@ -182,21 +182,6 @@ window_player.toggle("instant use",false,function(val)
     holdconnect:Disconnect()
 end)
 
-local walkspeedslider = window_player.slider("walkspeed",16,25,1,16,function(val)
-    hum.WalkSpeed = val
-    flags.speed = val
-end)
-
-task.spawn(function()
-    while true do
-        if hum.WalkSpeed < flags.speed then
-            hum.WalkSpeed = flags.speed
-        end
-        
-        task.wait()
-    end
-end)
-
 window_esp.toggle("door esp",false,function(val)
     flags.espdoors = val
     
